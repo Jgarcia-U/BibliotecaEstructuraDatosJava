@@ -3,6 +3,10 @@
 Este proyecto implementa un sistema de gestión de biblioteca en Java con un menú interactivo en consola.  
 Permite registrar libros y usuarios, realizar préstamos, devoluciones y consultar historial de acciones.
 
+## Visualizacion online
+
+Esto es un proyecto publicado en github de manera publica: [Jgarcia-U/BibliotecaEstructuraDatosJava](https://github.com/Jgarcia-U/BibliotecaEstructuraDatosJava)
+
 ## Funcionalidades
 
 - **Agregar libros** con ID único automático.

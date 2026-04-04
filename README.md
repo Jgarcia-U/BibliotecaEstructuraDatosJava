@@ -211,11 +211,6 @@ Permite registrar libros y usuarios, realizar préstamos, devoluciones y consult
     7. Mostrar solicitudes
     8. Mostrar historial
     0. Salir
-    Elige una opcion: 8
-
-    Historial de acciones:
-    Se agrego el libro: 1984
-    Se registro el usuario: Juan Manuel Garcia (ID: 1027150930)
-    Prestamo realizado: 1984 a Juan Manuel Garcia
-    Se devolvió el libro: 1984 por Juan Manuel Garcia
+    Elige una opcion: 0
+    Gracias por usar el sistema de biblioteca.
     ```

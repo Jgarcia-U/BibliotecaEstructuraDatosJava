@@ -1,6 +1,8 @@
 import java.util.*;
 import model.Libro;
 import model.Usuario;
+import tree.UsuarioBST;
+import tree.NodoUsuario;
 
 public class Biblioteca {
 
@@ -9,6 +11,7 @@ public class Biblioteca {
     Queue<String> solicitudes = new LinkedList<>();
     Stack<String> historial = new Stack<>();
     Map<Integer, Libro> prestamosActivos = new HashMap<>();
+    UsuarioBST arbolUsuarios = new UsuarioBST();
 
     public void agregarLibro(Libro libro) {
         libros.add(libro);
@@ -24,6 +27,7 @@ public class Biblioteca {
         }
 
         usuarios.add(usuario);
+        arbolUsuarios.insertar(usuario);
         historial.push("Se registro el usuario: " + usuario.getNombre() + " (ID: " + usuario.getId() + ")");
         System.out.println("Usuario registrado correctamente: " + usuario.getNombre() + " (ID: " + usuario.getId() + ")");
     }
@@ -101,6 +105,8 @@ public class Biblioteca {
             System.out.println("6. Mostrar usuarios");
             System.out.println("7. Mostrar solicitudes");
             System.out.println("8. Mostrar historial");
+            System.out.println("9. Buscar usuario por ID (árbol)");
+            System.out.println("10. Mostrar usuarios ordenados por ID");
             System.out.println("0. Salir");
             System.out.print("Elige una opcion: ");
 
@@ -169,6 +175,22 @@ public class Biblioteca {
                     break;
                 case 8:
                     biblio.mostrarHistorial();
+                    break;
+                case 9:
+                    System.out.print("Ingrese el ID del usuario: ");
+                    int buscarId = sc.nextInt();
+                    sc.nextLine();
+
+                    Usuario encontrado = biblio.arbolUsuarios.buscar(buscarId);
+
+                    if (encontrado != null) {
+                        System.out.println("Usuario encontrado: " + encontrado);
+                    } else {
+                        System.out.println("Usuario no encontrado.");
+                    }
+                    break;
+                case 10:
+                    biblio.arbolUsuarios.mostrarUsuariosOrdenados();
                     break;
             }
         } while(opcion != 0);

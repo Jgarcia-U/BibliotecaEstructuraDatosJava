@@ -1,5 +1,10 @@
-# Clases
+# model
 model/Libro.class
 model/Usuario.class
 
+# tree
+tree/NodoUsuario.class
+tree/UsuarioBST.class
+
+# main
 Biblioteca.class

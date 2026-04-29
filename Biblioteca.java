@@ -1,45 +1,7 @@
 import java.util.*;
+import model.Libro;
+import model.Usuario;
 
-// Clase Libro
-class Libro {
-    private static int contador = 1;
-    int id;
-    String titulo;
-    String autor;
-    boolean disponible;
-
-    public Libro(String titulo, String autor) {
-        this.id = contador++;
-        this.titulo = titulo;
-        this.autor = autor;
-        this.disponible = true;
-    }
-
-    @Override
-    public String toString() {
-        return "ID: " + id + " | " + titulo + " - " + autor + 
-               (disponible ? " (Disponible)" : " (Prestado)");
-    }
-}
-
-
-// Clase Usuario
-class Usuario {
-    String nombre;
-    int id;
-
-    public Usuario(String nombre, int id) {
-        this.nombre = nombre;
-        this.id = id;
-    }
-
-    @Override
-    public String toString() {
-        return nombre + " (ID: " + id + ")";
-    }
-}
-
-// Clase principal
 public class Biblioteca {
 
     List<Libro> libros = new ArrayList<>();
@@ -50,34 +12,34 @@ public class Biblioteca {
 
     public void agregarLibro(Libro libro) {
         libros.add(libro);
-        historial.push("Se agrego el libro: " + libro.titulo);
+        historial.push("Se agrego el libro: " + libro.getTitulo());
     }
 
     public void registrarUsuario(Usuario usuario) {
         for (Usuario u : usuarios) {
-            if (u.id == usuario.id) {
-                System.out.println("Ya existe un usuario con el ID " + usuario.id + ". Por favor usa otro ID.");
+            if (u.getId() == usuario.getId()) {
+                System.out.println("Ya existe un usuario con el ID " + usuario.getId() + ". Por favor usa otro ID.");
                 return;
             }
         }
 
         usuarios.add(usuario);
-        historial.push("Se registro el usuario: " + usuario.nombre + " (ID: " + usuario.id + ")");
-        System.out.println("Usuario registrado correctamente: " + usuario.nombre + " (ID: " + usuario.id + ")");
+        historial.push("Se registro el usuario: " + usuario.getNombre() + " (ID: " + usuario.getId() + ")");
+        System.out.println("Usuario registrado correctamente: " + usuario.getNombre() + " (ID: " + usuario.getId() + ")");
     }
 
     public void solicitarPrestamo(Usuario usuario, Libro libro) {
 
-        if (prestamosActivos.containsKey(usuario.id)) {
-            System.out.println("El usuario " + usuario.nombre + " ya tiene un libro prestado. Debe devolverlo antes de solicitar otro.");
+        if (prestamosActivos.containsKey(usuario.getId())) {
+            System.out.println("El usuario " + usuario.getNombre() + " ya tiene un libro prestado. Debe devolverlo antes de solicitar otro.");
             return;
         }
 
-        if (libro.disponible) {
-            libro.disponible = false;
-            prestamosActivos.put(usuario.id, libro);
-            solicitudes.add(usuario.nombre + " solicito " + libro.titulo);
-            historial.push("Prestamo realizado: " + libro.titulo + " a " + usuario.nombre);
+        if (libro.isDisponible()) {
+            libro.setDisponible(false);
+            prestamosActivos.put(usuario.getId(), libro);
+            solicitudes.add(usuario.getNombre() + " solicito " + libro.getTitulo());
+            historial.push("Prestamo realizado: " + libro.getTitulo() + " a " + usuario.getNombre());
         } else {
             System.out.println("El libro no esta disponible.");
         }
@@ -85,13 +47,13 @@ public class Biblioteca {
 
     public void devolverLibro(Usuario usuario) {
 
-        if (prestamosActivos.containsKey(usuario.id)) {
-            Libro libro = prestamosActivos.remove(usuario.id);
-            libro.disponible = true;
-            historial.push("Se devolvió el libro: " + libro.titulo + " por " + usuario.nombre);
-            System.out.println("El usuario " + usuario.nombre + " devolvió el libro: " + libro.titulo);
+        if (prestamosActivos.containsKey(usuario.getId())) {
+            Libro libro = prestamosActivos.remove(usuario.getId());
+            libro.setDisponible(true);
+            historial.push("Se devolvió el libro: " + libro.getTitulo() + " por " + usuario.getNombre());
+            System.out.println("El usuario " + usuario.getNombre() + " devolvió el libro: " + libro.getTitulo());
         } else {
-            System.out.println("El usuario " + usuario.nombre + " no tiene libros prestados.");
+            System.out.println("El usuario " + usuario.getNombre() + " no tiene libros prestados.");
         }
     }
 

@@ -3,6 +3,7 @@ import model.Libro;
 import model.Usuario;
 import tree.UsuarioBST;
 import tree.NodoUsuario;
+import tree.LibroBST;
 
 public class Biblioteca {
 
@@ -12,9 +13,11 @@ public class Biblioteca {
     Stack<String> historial = new Stack<>();
     Map<Integer, Libro> prestamosActivos = new HashMap<>();
     UsuarioBST arbolUsuarios = new UsuarioBST();
+    LibroBST arbolLibros = new LibroBST();
 
     public void agregarLibro(Libro libro) {
         libros.add(libro);
+        arbolLibros.insertar(libro);
         historial.push("Se agrego el libro: " + libro.getTitulo());
     }
 
@@ -107,6 +110,8 @@ public class Biblioteca {
             System.out.println("8. Mostrar historial");
             System.out.println("9. Buscar usuario por ID (árbol)");
             System.out.println("10. Mostrar usuarios ordenados por ID");
+            System.out.println("11. Buscar libro por ID (árbol)");
+            System.out.println("12. Mostrar libros ordenados por ID");
             System.out.println("0. Salir");
             System.out.print("Elige una opcion: ");
 
@@ -191,6 +196,22 @@ public class Biblioteca {
                     break;
                 case 10:
                     biblio.arbolUsuarios.mostrarUsuariosOrdenados();
+                    break;
+                case 11:
+                    System.out.print("Ingrese el ID del libro: ");
+                    int idLibro = sc.nextInt();
+                    sc.nextLine();
+
+                    Libro libroEncontrado = biblio.arbolLibros.buscar(idLibro);
+
+                    if (libroEncontrado != null) {
+                        System.out.println("Libro encontrado: " + libroEncontrado);
+                    } else {
+                        System.out.println("Libro no encontrado.");
+                    }
+                    break;
+                case 12:
+                    biblio.arbolLibros.mostrarLibrosOrdenados();
                     break;
             }
         } while(opcion != 0);

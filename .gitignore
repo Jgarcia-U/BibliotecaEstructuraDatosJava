@@ -5,6 +5,8 @@ model/Usuario.class
 # tree
 tree/NodoUsuario.class
 tree/UsuarioBST.class
+tree/NodoLibro.class
+tree/LibroBST.class
 
 # main
 Biblioteca.class

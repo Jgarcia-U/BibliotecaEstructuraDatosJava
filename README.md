@@ -20,17 +20,20 @@ Esto es un proyecto publicado en github de manera publica: [Jgarcia-U/Biblioteca
 
 ## Estructura del código
 
-- `Libro`: clase que representa un libro con ID, título, autor y estado (disponible/prestado).
-- `Usuario`: clase que representa un usuario con nombre e ID único.
-- `Biblioteca`: clase principal que contiene las listas de libros, usuarios, solicitudes, historial y préstamos activos.
-- `main`: método con menú interactivo para gestionar la biblioteca desde consola.
+- model/Libro: clase del modelo que representa un libro de la biblioteca. Contiene un identificador único, título, autor y el estado de disponibilidad. Implementa encapsulamiento mediante atributos privados y métodos getter/setter.
+
+- model/Usuario: clase del modelo que representa un usuario del sistema. Define un nombre y un ID único para identificar a cada usuario, aplicando encapsulamiento y métodos de acceso.
+
+- Biblioteca: clase principal que gestiona la lógica del sistema. Administra las colecciones de libros y usuarios, controla los préstamos activos mediante un Map, registra solicitudes en una Queue y mantiene un historial de acciones con una Stack.
+
+- main: método de ejecución que presenta un menú interactivo por consola, permitiendo al usuario agregar libros, registrar usuarios, gestionar préstamos y consultar la información del sistema.
 
 ## Ejecución
 
 1. Compilar el archivo:
 
     ```bash
-    javac Biblioteca.java
+    javac model/Libro.java model/Usuario.java Biblioteca.java
     ```
 
 2. Ejecutar el archivo:

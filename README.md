@@ -18,6 +18,69 @@ Esto es un proyecto publicado en github de manera publica: [Jgarcia-U/Biblioteca
 - **Historial de acciones** para rastrear operaciones realizadas.
 - **Validación de entradas**: el menú no se rompe si el usuario escribe letras en lugar de números.
 
+## Uso de árboles binarios de búsqueda
+
+Para mejorar la eficiencia en la gestión y consulta de la información del sistema, se implementaron árboles binarios de búsqueda (BST) para representar tanto a los usuarios como a los libros de la biblioteca.
+Un árbol binario de búsqueda permite organizar los datos de forma jerárquica utilizando una clave única, lo que optimiza operaciones como la inserción, búsqueda y recorrido, en comparación con estructuras lineales.
+
+## Árbol de usuarios (UsuarioBST)
+
+Se implementó un árbol binario de búsqueda de usuarios, utilizando el ID del usuario como clave principal.
+
+### Diseño usuarios
+
+- Cada nodo del árbol representa un usuario.
+- El ID del usuario es único y se utiliza para ordenar el árbol.
+- Los nodos con ID menor se ubican en el subárbol izquierdo y los mayores en el derecho.
+
+### Componentes usuarios
+
+- NodoUsuario: representa un nodo del árbol y almacena un objeto Usuario.
+- UsuarioBST: gestiona la lógica del árbol (inserción, búsqueda y recorrido).
+
+### Operaciones implementadas usuarios
+
+- Inserción de usuarios en orden según el ID.
+- Búsqueda de usuario por ID.
+- Recorrido inorden, que permite mostrar los usuarios ordenados por ID.
+
+### Integración usuarios
+
+Cada vez que se registra un nuevo usuario, este se inserta automáticamente en el árbol.
+Desde el menú principal se pueden:
+
+- Buscar usuarios por ID usando el árbol.
+- Mostrar todos los usuarios ordenados mediante recorrido inorden.
+
+## Árbol de libros (LibroBST)
+
+De forma similar, se implementó un árbol binario de búsqueda para los libros, utilizando el ID del libro como clave.
+
+### Diseño libros
+
+- Cada nodo representa un libro del sistema.
+- El ID del libro se genera automáticamente y es único.
+- El árbol se mantiene ordenado por ID.
+
+### Componentes libros
+
+- NodoLibro: nodo del árbol que contiene un objeto Libro.
+- LibroBST: clase que implementa la lógica del árbol de libros.
+
+### Operaciones implementadas libros
+
+- Inserción de libros en el árbol al momento de agregarlos.
+- Búsqueda de libros por ID.
+- Recorrido inorden para mostrar los libros ordenados.
+
+### Integración libros
+
+Al agregar un libro al sistema, este se inserta tanto en la estructura general como en el árbol de libros.
+Desde el menú se puede:
+
+- Buscar libros por ID utilizando el árbol.
+- Mostrar todos los libros ordenados por ID.
+
 ## Estructura del código
 
 - model/Libro: clase del modelo que representa un libro de la biblioteca. Contiene un identificador único, título, autor y el estado de disponibilidad. Implementa encapsulamiento mediante atributos privados y métodos getter/setter.

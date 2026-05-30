@@ -1,7 +1,7 @@
 # Sistema de Biblioteca en Java
 
-Este proyecto implementa un sistema de gestión de biblioteca en Java con un menú interactivo en consola.  
-Permite registrar libros y usuarios, realizar préstamos, devoluciones y consultar historial de acciones.
+Este proyecto implementa un sistema de gestión de biblioteca en Java con un menú interactivo en consola.
+Permite registrar libros y usuarios, realizar préstamos, devoluciones, consultas eficientes y visualizar relaciones mediante grafos.
 
 ## Visualizacion online
 
@@ -9,19 +9,26 @@ Esto es un proyecto publicado en github de manera publica: [Jgarcia-U/Biblioteca
 
 ## Funcionalidades
 
-- **Agregar libros** con ID único automático.
-- **Registrar usuarios** con validación para evitar IDs duplicados.
-- **Solicitar préstamo**: cada usuario solo puede tener un libro prestado a la vez.
-- **Devolver libro**: el usuario debe devolver su libro antes de solicitar otro.
-- **Mostrar listas** de libros y usuarios.
-- **Ver solicitudes pendientes**.
-- **Historial de acciones** para rastrear operaciones realizadas.
-- **Validación de entradas**: el menú no se rompe si el usuario escribe letras en lugar de números.
+- Agregar libros con ID único automático.
+- Registrar usuarios con validación de IDs únicos.
+- Solicitar préstamo (máximo 1 libro por usuario).
+- Devolver libros.
+- Mostrar listas de libros y usuarios.
+- Ver solicitudes pendientes.
+- Historial de acciones (Stack).
+- Validación de entradas en el menú.
+- Uso de estructuras de datos avanzadas:
+  - Listas
+  - Pilas
+  - Colas
+  - Mapas
+  - Árboles binarios de búsqueda
+  - Grafos
 
 ## Uso de árboles binarios de búsqueda
 
-Para mejorar la eficiencia en la gestión y consulta de la información del sistema, se implementaron árboles binarios de búsqueda (BST) para representar tanto a los usuarios como a los libros de la biblioteca.
-Un árbol binario de búsqueda permite organizar los datos de forma jerárquica utilizando una clave única, lo que optimiza operaciones como la inserción, búsqueda y recorrido, en comparación con estructuras lineales.
+Para mejorar la eficiencia en la gestión y consulta de información, se implementaron árboles binarios de búsqueda (BST) para usuarios y libros.
+Un BST permite organizar datos de forma jerárquica, optimizando operaciones como inserción, búsqueda y recorrido respecto a estructuras lineales.
 
 ## Árbol de usuarios (UsuarioBST)
 
@@ -81,6 +88,38 @@ Desde el menú se puede:
 - Buscar libros por ID utilizando el árbol.
 - Mostrar todos los libros ordenados por ID.
 
+## Uso de Grafos en el sistema
+
+Como parte de la optimización del sistema, se implementó un grafo dirigido no ponderado para representar las relaciones entre usuarios y libros.
+
+### Diseño del grafo
+
+- Nodos: Usuarios
+- Aristas: Relación → usuario solicita libro
+- Tipo: Dirigido
+- Sin peso (no ponderado)
+
+### Estructura utilizada
+
+Se implementó mediante lista de adyacencia con HashMap:
+
+    ```Java
+        Map<Integer, List<Integer>>
+    ```
+
+- Clave → ID del usuario
+- Valor → lista de IDs de libros
+
+### Ejemplo
+
+    ```Bash
+        Usuario 1 -> [Libro 1]
+        Usuario 2 -> [Libro 3]
+    ```
+
+Debido a la regla del sistema:
+Un usuario solo puede tener un libro activo
+
 ## Estructura del código
 
 - model/Libro: clase del modelo que representa un libro de la biblioteca. Contiene un identificador único, título, autor y el estado de disponibilidad. Implementa encapsulamiento mediante atributos privados y métodos getter/setter.
@@ -95,21 +134,21 @@ Desde el menú se puede:
 
 1. Compilar el archivo:
 
-    ```bash
-    javac Biblioteca.java graph/*.java model/*.java tree/*.java
+    ```Bash
+        javac Biblioteca.java graph/*.java model/*.java tree/*.java
     ```
 
 2. Ejecutar el archivo:
 
-    ```bash
-    java Biblioteca
+    ```Bash
+        java Biblioteca
     ```
 
 ## Pruebas
 
 1. Creacion de libros
 
-    ```bash
+    ```Bash
     --- Menu Biblioteca ---
     1. Agregar libro
     2. Registrar usuario
@@ -119,6 +158,12 @@ Desde el menú se puede:
     6. Mostrar usuarios
     7. Mostrar solicitudes
     8. Mostrar historial
+    9. Buscar usuario por ID (árbol)
+    10. Mostrar usuarios ordenados por ID
+    11. Buscar libro por ID (árbol)
+    12. Mostrar libros ordenados por ID
+    13. Ver libros de un usuario (grafo)
+    14. Mostrar grafo completo
     0. Salir
     Elige una opcion: 1
     Titulo: 1984
@@ -137,11 +182,17 @@ Desde el menú se puede:
     6. Mostrar usuarios
     7. Mostrar solicitudes
     8. Mostrar historial
+    9. Buscar usuario por ID (árbol)
+    10. Mostrar usuarios ordenados por ID
+    11. Buscar libro por ID (árbol)
+    12. Mostrar libros ordenados por ID
+    13. Ver libros de un usuario (grafo)
+    14. Mostrar grafo completo
     0. Salir
     Elige una opcion: 2
-    Nombre: Juan Manuel Garcia
-    ID: 1027150930
-    Usuario registrado correctamente: Juan Manuel Garcia (ID: 1027150930)
+    Nombre: Juan Manuel Garcia 
+    ID: 1234567890
+    Usuario registrado correctamente: Juan Manuel Garcia (ID: 1234567890)
     ```
 
 3. Creacion de prestamo
@@ -156,11 +207,17 @@ Desde el menú se puede:
     6. Mostrar usuarios
     7. Mostrar solicitudes
     8. Mostrar historial
+    9. Buscar usuario por ID (árbol)
+    10. Mostrar usuarios ordenados por ID
+    11. Buscar libro por ID (árbol)
+    12. Mostrar libros ordenados por ID
+    13. Ver libros de un usuario (grafo)
+    14. Mostrar grafo completo
     0. Salir
     Elige una opcion: 3
 
     Lista de usuarios:
-    1. Juan Manuel Garcia (ID: 1027150930)
+    1. Juan Manuel Garcia (ID: 1234567890)
     Numero de usuario: 1
 
     Lista de libros:
@@ -180,11 +237,17 @@ Desde el menú se puede:
     6. Mostrar usuarios
     7. Mostrar solicitudes
     8. Mostrar historial
+    9. Buscar usuario por ID (árbol)
+    10. Mostrar usuarios ordenados por ID
+    11. Buscar libro por ID (árbol)
+    12. Mostrar libros ordenados por ID
+    13. Ver libros de un usuario (grafo)
+    14. Mostrar grafo completo
     0. Salir
     Elige una opcion: 4
 
     Lista de usuarios:
-    1. Juan Manuel Garcia (ID: 1027150930)
+    1. Juan Manuel Garcia (ID: 1234567890)
     Numero de usuario que devuelve el libro: 1
     El usuario Juan Manuel Garcia devolvió el libro: 1984
     ```
@@ -201,6 +264,12 @@ Desde el menú se puede:
     6. Mostrar usuarios
     7. Mostrar solicitudes
     8. Mostrar historial
+    9. Buscar usuario por ID (árbol)
+    10. Mostrar usuarios ordenados por ID
+    11. Buscar libro por ID (árbol)
+    12. Mostrar libros ordenados por ID
+    13. Ver libros de un usuario (grafo)
+    14. Mostrar grafo completo
     0. Salir
     Elige una opcion: 5
 
@@ -220,16 +289,22 @@ Desde el menú se puede:
     6. Mostrar usuarios
     7. Mostrar solicitudes
     8. Mostrar historial
+    9. Buscar usuario por ID (árbol)
+    10. Mostrar usuarios ordenados por ID
+    11. Buscar libro por ID (árbol)
+    12. Mostrar libros ordenados por ID
+    13. Ver libros de un usuario (grafo)
+    14. Mostrar grafo completo
     0. Salir
     Elige una opcion: 6
 
     Lista de usuarios:
-    1. Juan Manuel Garcia (ID: 1027150930)
+    1. Juan Manuel Garcia (ID: 1234567890)
     ```
 
 7. Mostrar solicitudes
 
-    ```bash
+    ```Bash
     --- Menu Biblioteca ---
     1. Agregar libro
     2. Registrar usuario
@@ -239,6 +314,12 @@ Desde el menú se puede:
     6. Mostrar usuarios
     7. Mostrar solicitudes
     8. Mostrar historial
+    9. Buscar usuario por ID (árbol)
+    10. Mostrar usuarios ordenados por ID
+    11. Buscar libro por ID (árbol)
+    12. Mostrar libros ordenados por ID
+    13. Ver libros de un usuario (grafo)
+    14. Mostrar grafo completo
     0. Salir
     Elige una opcion: 7
 
@@ -258,17 +339,23 @@ Desde el menú se puede:
     6. Mostrar usuarios
     7. Mostrar solicitudes
     8. Mostrar historial
+    9. Buscar usuario por ID (árbol)
+    10. Mostrar usuarios ordenados por ID
+    11. Buscar libro por ID (árbol)
+    12. Mostrar libros ordenados por ID
+    13. Ver libros de un usuario (grafo)
+    14. Mostrar grafo completo
     0. Salir
     Elige una opcion: 8
 
     Historial de acciones:
     Se agrego el libro: 1984
-    Se registro el usuario: Juan Manuel Garcia (ID: 1027150930)
+    Se registro el usuario: Juan Manuel Garcia (ID: 1234567890)
     Prestamo realizado: 1984 a Juan Manuel Garcia
     Se devolvió el libro: 1984 por Juan Manuel Garcia
     ```
 
-9. Salir del sistema
+9. Buscar usuario por ID (árbol)
 
     ```Bash
     --- Menu Biblioteca ---
@@ -280,6 +367,155 @@ Desde el menú se puede:
     6. Mostrar usuarios
     7. Mostrar solicitudes
     8. Mostrar historial
+    9. Buscar usuario por ID (árbol)
+    10. Mostrar usuarios ordenados por ID
+    11. Buscar libro por ID (árbol)
+    12. Mostrar libros ordenados por ID
+    13. Ver libros de un usuario (grafo)
+    14. Mostrar grafo completo
+    0. Salir
+    Elige una opcion: 9
+    Ingrese el ID del usuario: 1234567890
+    Usuario encontrado: Juan Manuel Garcia (ID: 1234567890)
+    ```
+
+10. Mostrar usuarios ordenados por ID
+
+    ```Bash
+    --- Menu Biblioteca ---
+    1. Agregar libro
+    2. Registrar usuario
+    3. Solicitar prestamo
+    4. Devolver libro
+    5. Mostrar libros
+    6. Mostrar usuarios
+    7. Mostrar solicitudes
+    8. Mostrar historial
+    9. Buscar usuario por ID (árbol)
+    10. Mostrar usuarios ordenados por ID
+    11. Buscar libro por ID (árbol)
+    12. Mostrar libros ordenados por ID
+    13. Ver libros de un usuario (grafo)
+    14. Mostrar grafo completo
+    0. Salir
+    Elige una opcion: 10
+    Juan Manuel Garcia (ID: 1234567890)
+    ```
+
+11. Buscar libro por ID (árbol)
+
+    ```Bash
+    --- Menu Biblioteca ---
+    1. Agregar libro
+    2. Registrar usuario
+    3. Solicitar prestamo
+    4. Devolver libro
+    5. Mostrar libros
+    6. Mostrar usuarios
+    7. Mostrar solicitudes
+    8. Mostrar historial
+    9. Buscar usuario por ID (árbol)
+    10. Mostrar usuarios ordenados por ID
+    11. Buscar libro por ID (árbol)
+    12. Mostrar libros ordenados por ID
+    13. Ver libros de un usuario (grafo)
+    14. Mostrar grafo completo
+    0. Salir
+    Elige una opcion: 11
+    Ingrese el ID del libro: 1
+    Libro encontrado: ID: 1 | 1984 - George Orwell (Disponible)
+    ```
+
+12. Mostrar libros ordenados por ID
+
+    ```Bash
+    --- Menu Biblioteca ---
+    1. Agregar libro
+    2. Registrar usuario
+    3. Solicitar prestamo
+    4. Devolver libro
+    5. Mostrar libros
+    6. Mostrar usuarios
+    7. Mostrar solicitudes
+    8. Mostrar historial
+    9. Buscar usuario por ID (árbol)
+    10. Mostrar usuarios ordenados por ID
+    11. Buscar libro por ID (árbol)
+    12. Mostrar libros ordenados por ID
+    13. Ver libros de un usuario (grafo)
+    14. Mostrar grafo completo
+    0. Salir
+    Elige una opcion: 12
+    ID: 1 | 1984 - George Orwell (Disponible)
+    ```
+
+13. Ver libros de un usuario (grafo)
+
+    ```Bash
+    --- Menu Biblioteca ---
+    1. Agregar libro
+    2. Registrar usuario
+    3. Solicitar prestamo
+    4. Devolver libro
+    5. Mostrar libros
+    6. Mostrar usuarios
+    7. Mostrar solicitudes
+    8. Mostrar historial
+    9. Buscar usuario por ID (árbol)
+    10. Mostrar usuarios ordenados por ID
+    11. Buscar libro por ID (árbol)
+    12. Mostrar libros ordenados por ID
+    13. Ver libros de un usuario (grafo)
+    14. Mostrar grafo completo
+    0. Salir
+    Elige una opcion: 13
+    Ingrese ID del usuario: 1234567890
+    Libros asociados: [1]
+    ```
+
+14. Mostrar grafo completo
+
+    ```Bash
+    --- Menu Biblioteca ---
+    1. Agregar libro
+    2. Registrar usuario
+    3. Solicitar prestamo
+    4. Devolver libro
+    5. Mostrar libros
+    6. Mostrar usuarios
+    7. Mostrar solicitudes
+    8. Mostrar historial
+    9. Buscar usuario por ID (árbol)
+    10. Mostrar usuarios ordenados por ID
+    11. Buscar libro por ID (árbol)
+    12. Mostrar libros ordenados por ID
+    13. Ver libros de un usuario (grafo)
+    14. Mostrar grafo completo
+    0. Salir
+    Elige una opcion: 14
+
+    Relaciones Usuario -> Libros:
+    Usuario 1234567890 -> Libros [1]
+    ```
+
+15. Salir
+
+    ```Bash
+    --- Menu Biblioteca ---
+    1. Agregar libro
+    2. Registrar usuario
+    3. Solicitar prestamo
+    4. Devolver libro
+    5. Mostrar libros
+    6. Mostrar usuarios
+    7. Mostrar solicitudes
+    8. Mostrar historial
+    9. Buscar usuario por ID (árbol)
+    10. Mostrar usuarios ordenados por ID
+    11. Buscar libro por ID (árbol)
+    12. Mostrar libros ordenados por ID
+    13. Ver libros de un usuario (grafo)
+    14. Mostrar grafo completo
     0. Salir
     Elige una opcion: 0
     Gracias por usar el sistema de biblioteca.

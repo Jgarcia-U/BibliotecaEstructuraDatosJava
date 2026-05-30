@@ -96,7 +96,7 @@ Desde el menú se puede:
 1. Compilar el archivo:
 
     ```bash
-    javac model/Libro.java model/Usuario.java Biblioteca.java
+    javac Biblioteca.java graph/*.java model/*.java tree/*.java
     ```
 
 2. Ejecutar el archivo:

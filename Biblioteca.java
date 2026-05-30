@@ -4,6 +4,7 @@ import model.Usuario;
 import tree.UsuarioBST;
 import tree.NodoUsuario;
 import tree.LibroBST;
+import graph.GrafoBiblioteca;
 
 public class Biblioteca {
 
@@ -14,6 +15,7 @@ public class Biblioteca {
     Map<Integer, Libro> prestamosActivos = new HashMap<>();
     UsuarioBST arbolUsuarios = new UsuarioBST();
     LibroBST arbolLibros = new LibroBST();
+    GrafoBiblioteca grafo = new GrafoBiblioteca();
 
     public void agregarLibro(Libro libro) {
         libros.add(libro);
@@ -45,6 +47,7 @@ public class Biblioteca {
         if (libro.isDisponible()) {
             libro.setDisponible(false);
             prestamosActivos.put(usuario.getId(), libro);
+            grafo.agregarRelacion(usuario.getId(), libro.getId());
             solicitudes.add(usuario.getNombre() + " solicito " + libro.getTitulo());
             historial.push("Prestamo realizado: " + libro.getTitulo() + " a " + usuario.getNombre());
         } else {
@@ -57,6 +60,7 @@ public class Biblioteca {
         if (prestamosActivos.containsKey(usuario.getId())) {
             Libro libro = prestamosActivos.remove(usuario.getId());
             libro.setDisponible(true);
+            grafo.eliminarRelacion(usuario.getId(), libro.getId());
             historial.push("Se devolvió el libro: " + libro.getTitulo() + " por " + usuario.getNombre());
             System.out.println("El usuario " + usuario.getNombre() + " devolvió el libro: " + libro.getTitulo());
         } else {
@@ -112,6 +116,8 @@ public class Biblioteca {
             System.out.println("10. Mostrar usuarios ordenados por ID");
             System.out.println("11. Buscar libro por ID (árbol)");
             System.out.println("12. Mostrar libros ordenados por ID");
+            System.out.println("13. Ver libros de un usuario (grafo)");
+            System.out.println("14. Mostrar grafo completo");
             System.out.println("0. Salir");
             System.out.print("Elige una opcion: ");
 
@@ -212,6 +218,22 @@ public class Biblioteca {
                     break;
                 case 12:
                     biblio.arbolLibros.mostrarLibrosOrdenados();
+                    break;
+                case 13:
+                    System.out.print("Ingrese ID del usuario: ");
+                    int idUsuarioGrafo = sc.nextInt();
+                    sc.nextLine();
+
+                    List<Integer> librosUsuario = biblio.grafo.obtenerLibrosDeUsuario(idUsuarioGrafo);
+
+                    if (librosUsuario.isEmpty()) {
+                        System.out.println("El usuario no tiene libros en el grafo.");
+                    } else {
+                        System.out.println("Libros asociados: " + librosUsuario);
+                    }
+                    break;
+                case 14:
+                    biblio.grafo.mostrarGrafo();
                     break;
             }
         } while(opcion != 0);
